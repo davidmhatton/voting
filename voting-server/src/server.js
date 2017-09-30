@@ -9,5 +9,7 @@ export default function startServer(store) {
 
   io.on('connection', (socket) => {
     socket.emit('state', store.getState().toJS());
+    socket.on('action', store.dispatch.bind(store));
+    // NOTE: If this were anything other than a demo, serious security would go here.
   });
 }
